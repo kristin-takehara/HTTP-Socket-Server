@@ -12,63 +12,76 @@ const server = net.createServer((client) => {
   //enter your work here
   client.on('data' , (data) => {
     const dataString = data.toString();
-    // console.log(dataString);
+    // console.log(dataString.split(' ')[3]);
 
+    // const methodGET = dataString.split(' ')[0];
+    // const host = dataString.split(' ')[2];
 
-    ////***PICK UP HERE - work to creating server header response***
-    // client.write({
-    //   'GET: HTTP/1.1'
-    //   'Server: localhost:8080'
-    //   'Date: '
-    // });
-
+////////////////////BODY///////////////
     const uri = dataString.split(' ')[1];
-
-    if (uri === '/') {
-      fs.readFile('./public/index.html', (err, data) => {
+    console.log(uri);
+    function buildBody(target, path) {
+      if( uri === target){
+      fs.readFile(path, (err, data) => {
         if (err) throw err;
-        console.log(data.toString);
-      });
-    }
-
-    if (uri === '/index.html') {
-      fs.readFile('./public/index.html', (err, data) => {
-        if (err) throw err;
-        console.log(data.toString());
-      });
-    }
-
-    if (uri === '/hydrogen.html') {
-      fs.readFile('./public/hydrogen.html', (err, data) => {
-        if (err) throw err;
-        console.log(data.toString());
-      });
-    }
-
-    if (uri === '/helium.html') {
-      // send html file with headers
-      fs.readFile('./public/helium.html', (err, data) => {
-        if (err) throw err;
-        console.log(data.toString());
-      });
-    }
-
-    if (uri === '/404.html') {
-      fs.readFile('./public/404.html', (err, data) => {
-        if (err) throw err;
-        console.log(data.toString());
+          console.log(data.toString());
         });
+      }
     }
-    if (uri === '/css/styles.css') {
-      fs.readFile('./public/css/styles.css', (err, data) => {
-        if (err) throw err;
-        console.log(data.toString());
-        });
-    }
-    client.end();
+console.log(buildBody('/', './public/index.html'));
+console.log(buildBody('/index.html', './public/index.html'));
+console.log(buildBody('/hydrogen.html', './public/hydrogen.html'));
+console.log(buildBody('/helium.html', './public/helium.html'));
+console.log(buildBody('/404.html', './public/404.html'));
+console.log(buildBody('/css/styles.css', './public/css/styles.css'));
+
+
+    // if (uri === '/') {
+    //   fs.readFile('./public/index.html', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data.toString);
+    //   });
+    // }
+
+    // if (uri === '/index.html') {
+    //   fs.readFile('./public/index.html', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data.toString());
+    //   });
+    // }
+
+    // if (uri === '/hydrogen.html') {
+    //   fs.readFile('./public/hydrogen.html', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data.toString());
+    //   });
+    // }
+
+    // if (uri === '/helium.html') {
+    //   // send html file with headers
+    //   fs.readFile('./public/helium.html', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data.toString());
+    //   });
+    // }
+
+    // if (uri === '/404.html') {
+    //   fs.readFile('./public/404.html', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data.toString());
+    //     });
+    // }
+    // if (uri === '/css/styles.css') {
+    //   fs.readFile('./public/css/styles.css', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data.toString());
+    //     });
+    // }
+
+    client.end(); //client ends the connection
   });
 
-  client.on('end', () => {
+  client.on('end', () => { //server closes the connection
     console.log('Client Disconnected');
   });
 
