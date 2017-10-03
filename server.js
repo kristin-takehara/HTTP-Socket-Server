@@ -12,12 +12,13 @@ const server = net.createServer((client) => {
   //enter your work here
   client.on('data' , (data) => {
     const dataString = data.toString();
+    console.log(dataString);
 
 
     const uri = dataString.split(' ')[1];
 
     if (uri === '/') {
-      fs.readFile('./public.index.html', (err, data) => {
+      fs.readFile('./public/index.html', (err, data) => {
         if (err) throw err;
         console.log(data.toString);
       });
