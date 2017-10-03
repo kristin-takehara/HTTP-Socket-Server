@@ -12,8 +12,15 @@ const server = net.createServer((client) => {
   //enter your work here
   client.on('data' , (data) => {
     const dataString = data.toString();
-    console.log(dataString);
+    // console.log(dataString);
 
+
+    ////***PICK UP HERE - work to creating server header response***
+    // client.write({
+    //   'GET: HTTP/1.1'
+    //   'Server: localhost:8080'
+    //   'Date: '
+    // });
 
     const uri = dataString.split(' ')[1];
 
